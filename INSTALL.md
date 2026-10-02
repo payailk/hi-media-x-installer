@@ -14,7 +14,14 @@
 ```bash
 sudo mkdir -p /srv/himediax
 cd /srv/himediax
-curl -fsSL https://proxy.151513.xyz/raw.githubusercontent.com/iceqi/hi-media-x-installer/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh | sudo bash
+```
+
+无法访问 GitHub Raw 时，可以通过 GitHub 文件代理获取脚本和 Compose 模板：
+
+```bash
+curl -fsSL https://v4.gh-proxy.org/https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh \
+  | sudo env HIMEDIAX_INSTALLER_BASE_URL=https://v4.gh-proxy.org/https://raw.githubusercontent.com/payailk/hi-media-x-installer/main bash
 ```
 
 安装脚本会下载最新 Compose 模板，并提供以下菜单：
@@ -67,8 +74,9 @@ GuessIt 是可选独立服务，使用 `compose.guessit.yaml` 手动部署。
 Docker Hub 不可达时使用镜像代理：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/iceqi/hi-media-x-installer/main/install.sh \
+curl -fsSL https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh \
   | sudo env HIMEDIAX_MIRROR=https://gh-proxy.org bash
 ```
 
 也可以设置 `HIMEDIAX_IMAGE_REGISTRY`。两种变量都支持带或不带 `http://`、`https://` 前缀。
+镜像代理不会改变安装脚本和 Compose 模板的下载地址；需要代理这些文件时设置 `HIMEDIAX_INSTALLER_BASE_URL`。

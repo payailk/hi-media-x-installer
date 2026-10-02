@@ -9,7 +9,14 @@
 ```bash
 sudo mkdir -p /srv/himediax
 cd /srv/himediax
-curl -fsSL https://proxy.151513.xyz/raw.githubusercontent.com/iceqi/hi-media-x-installer/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh | sudo bash
+```
+
+无法访问 GitHub Raw 时，可以通过 GitHub 文件代理获取脚本和 Compose 模板：
+
+```bash
+curl -fsSL https://v4.gh-proxy.org/https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh \
+  | sudo env HIMEDIAX_INSTALLER_BASE_URL=https://v4.gh-proxy.org/https://raw.githubusercontent.com/payailk/hi-media-x-installer/main bash
 ```
 
 脚本会刷新本仓库中的 Compose 模板，然后显示五种安装方式：
@@ -121,11 +128,12 @@ docker compose -f compose.guessit.yaml up -d
 设置 `HIMEDIAX_IMAGE_REGISTRY` 可以替换 Compose 使用的镜像注册表，例如：
 
 ```bash
-curl -fsSL https://proxy.151513.xyz/raw.githubusercontent.com/iceqi/hi-media-x-installer/main/install.sh \
+curl -fsSL https://raw.githubusercontent.com/payailk/hi-media-x-installer/main/install.sh \
   | sudo env HIMEDIAX_MIRROR=https://gh-proxy.org bash
 ```
 
 也可以设置 `HIMEDIAX_IMAGE_REGISTRY=gh-proxy.org`。脚本会自动去掉 `http://` 或 `https://` 前缀。
+`HIMEDIAX_IMAGE_REGISTRY` 和 `HIMEDIAX_MIRROR` 只影响 Docker 镜像；安装脚本与 Compose 模板的下载地址由 `HIMEDIAX_INSTALLER_BASE_URL` 控制。
 
 ## 安全说明
 

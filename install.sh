@@ -4,7 +4,8 @@ set -euo pipefail
 
 # HiMediaX 公开安装入口：安装资产始终从公开仓库下载，不依赖私有源码。
 script_dir="$(pwd -P)"
-raw_base="https://proxy.151513.xyz/raw.githubusercontent.com/iceqi/hi-media-x-installer/main"
+raw_base="${HIMEDIAX_INSTALLER_BASE_URL:-https://raw.githubusercontent.com/payailk/hi-media-x-installer/main}"
+raw_base="${raw_base%/}"
 env_tmp=""
 service_host=""
 xiaoya_container=""
